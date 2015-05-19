@@ -22,7 +22,7 @@ var autocomplete = {
     	 * 
     	 * @param 	object			obj
     	 * @param 	array|string	obj.words
-    	 * @param 	string			obj.id
+    	 * @param 	string			obj.id 
     	 * @param 	string			obj.optionHover
     	 * @param 	string			obj.borderList
     	 * @param	string			obj.target
