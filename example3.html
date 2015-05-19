@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset = "utf-8" />
+	<title>Example 3</title>
+</head>
+<body>
+	<label for = "foo">Search</label>
+	<input type = "text" id = "foo" class = "auto" />
+	<script type = "text/javascript" src = "autocomplete.js"></script>
+	<script type = "text/javascript">
+		autocomplete.load({
+			words: "example3.php",
+			id: "list",
+			target: "foo"
+		});
+	</script>
+</body>
+</html>
