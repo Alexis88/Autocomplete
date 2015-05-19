@@ -1,2 +1,2 @@
 # Autocomplete
-Autocomplete module.
+Autocomplete module. Works on Chrome, Firefox, Opera and IE9+.
