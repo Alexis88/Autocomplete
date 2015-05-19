@@ -1,3 +1,9 @@
+/**
+ * Autocomplete module
+ * @autor	Alexis López Espinoza
+ * @version	1.0
+ */
+
 var autocomplete = {
     words: [], //Words to show
     span: null, //For each word
@@ -10,6 +16,17 @@ var autocomplete = {
     container: document.createElement("div"), //Options list
     cls: "highlight", //Class name for active's option
     load: function(obj){
+    	/**
+    	 * Load the data into Autocomplete's module
+    	 * 
+    	 * @param 	object			obj
+    	 * @param 	array|string	obj.words
+    	 * @param 	string			obj.id
+    	 * @param 	string			obj.optionHover
+    	 * @param 	string			obj.borderList
+    	 * @param	string			obj.target
+    	 */
+    	
         this.source = obj.words;
         this.id = obj.id || "dlContainer";
         this.container.id = this.id;
@@ -24,6 +41,13 @@ var autocomplete = {
         this.apply(obj.target);
     },
     ajax: function(url, val){
+    	/**
+    	 * Asynchronously search some data in a PHP, ASP or JSP file with the sent word/s
+    	 * 
+    	 * @param	string	url
+    	 * @param	string	val
+    	 */
+    	
         autocomplete.xhr = new XMLHttpRequest();
         autocomplete.xhr.open("GET", url + "?term=" + val, true);
         autocomplete.xhr.addEventListener("readystatechange", function(){
@@ -35,6 +59,12 @@ var autocomplete = {
         autocomplete.xhr.send();
     },
     show: function(){
+    	/**
+    	 * Build and shows the options list
+    	 * 
+    	 * @return	Option's list
+    	 */
+    	
         autocomplete.container.innerHTML = "";
         if (autocomplete.words.length){
             autocomplete.words.forEach(function(word){
@@ -58,6 +88,10 @@ var autocomplete = {
         }
     },
     position: function(){
+    	/**
+    	 * Sets the width for the options list and positions it
+    	 */
+    	
     	if (autocomplete.elem){
 	        autocomplete.container.style.width = autocomplete.elem.offsetWidth + "px";
 	        autocomplete.container.style.left = autocomplete.elem.offsetLeft + "px";
@@ -65,6 +99,12 @@ var autocomplete = {
 	    }
     },
     write: function(value){
+    	/**
+    	 * When user press a key
+    	 * 
+    	 * @param	string	value
+    	 */
+    	
         if (value.length){
         	autocomplete.elem = this;
         	autocomplete.position();
@@ -99,6 +139,12 @@ var autocomplete = {
         }
     },
     apply: function(identifier){
+    	/**
+    	 * Applies the Autocomplete module on the target field
+    	 * 
+    	 * @param	string	identifier
+    	 */
+    	
         var all, old, hov;
 
         window.addEventListener("keyup", function(event){
