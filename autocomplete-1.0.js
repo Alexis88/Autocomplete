@@ -43,7 +43,7 @@ var autocomplete = {
     },
     ajax: function(url, val){
     	/**
-    	 * Asynchronously search some data in a PHP, ASP or JSP file with the sent word/s
+    	 * Asynchronously search of some data in a PHP, ASP or JSP file with the sent word/s
     	 * 
     	 * @param	string	url
     	 * @param	string	val
