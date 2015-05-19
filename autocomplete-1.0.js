@@ -21,8 +21,8 @@ var autocomplete = {
     	 * Load the data into Autocomplete's module
     	 * 
     	 * @param 	object			obj
-    	 * @param 	array|string	obj.words
-    	 * @param 	string			obj.id 
+    	 * @param 	array|string        obj.words
+    	 * @param 	string			obj.id
     	 * @param 	string			obj.optionHover
     	 * @param 	string			obj.borderList
     	 * @param	string			obj.target
