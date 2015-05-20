@@ -1,7 +1,7 @@
 /**
  * Autocomplete module
  * 
- * @autor	Alexis López Espinoza
+ * @author	Alexis López Espinoza
  * @version	1.0
  */
 
