@@ -79,9 +79,9 @@ var autocomplete = {
                 autocomplete.span.style.MozUserSelect = "none";
                 autocomplete.span.addEventListener("mouseover", function(){
                 	if ((autocomplete.aux = autocomplete.container.querySelectorAll("." + autocomplete.cls)).length){
-                        autocomplete.aux[0].style.background = autocomplete.back || "lightyellow";
-                        autocomplete.aux[0].className = "";
-                    }
+                        	autocomplete.aux[0].style.background = autocomplete.back || "lightyellow";
+                        	autocomplete.aux[0].className = "";
+                    	}
                     this.style.background = autocomplete.hover || "gold";
                 }, false);
                 autocomplete.span.addEventListener("mouseout", function(){
