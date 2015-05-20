@@ -125,12 +125,8 @@ var autocomplete = {
                 autocomplete.ajax(autocomplete.source, value);
             }
             else{
-                if (autocomplete.search.toLowerCase().search(value.toLowerCase().trim()) > -1){
-                    autocomplete.words = [autocomplete.search];
-                }
-                else{
-                    autocomplete.words = [];
-                }
+                autocomplete.words = autocomplete.search.toLowerCase().search(value.toLowerCase().trim()) > -1 ? 
+                [autocomplete.search] : [];
                 autocomplete.show();
             }
         }
