@@ -15,7 +15,7 @@ var autocomplete = {
     hover: null, //Span's background color on mouseover event
     source: null, //Words list or URLs list for search
     container: document.createElement("div"), //Options list
-    cls: "highlight", //Class name for active's option
+    cls: "highlight", //Class name for active option
     load: function(obj){
     	/**
     	 * Load the data into Autocomplete's module
