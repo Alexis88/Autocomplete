@@ -38,8 +38,15 @@ var autocomplete = {
         this.container.style.border = obj.borderList || ".1rem peru solid";
         this.container.style.position = "absolute";
         this.container.style.zIndex = 9999;
-        document.body.appendChild(this.container);
+        document.addEventListener("DOMContentLoaded", autocomplete.ready, false);        
         this.apply(obj.target);
+    },
+    ready: function(){
+        /**
+         * When DOM's content has finished
+         */
+
+         document.body.appendChild(autocomplete.container);
     },
     ajax: function(url, val){
     	/**
