@@ -157,7 +157,7 @@ var autocomplete = {
             else{
                 all = [].slice.call(autocomplete.container.querySelectorAll("span"));
 
-                //Up
+                //Down
                 if (event.keyCode == 40){
                     if (autocomplete.container.offsetHeight){
                         if (!autocomplete.container.querySelectorAll("." + autocomplete.cls).length){
@@ -178,7 +178,7 @@ var autocomplete = {
                     }
                 }
                 
-                //Down
+                //Up
                 if (event.keyCode == 38){
                     if (autocomplete.container.offsetHeight){
                         if (!autocomplete.container.querySelectorAll("." + autocomplete.cls).length){
