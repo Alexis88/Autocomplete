@@ -25,8 +25,8 @@
 			backList: "lime",
 			backBorder: "1px cadetblue solid",
 			value: "cli_name",
-			select: function(option){
-			    console.log(option.innerHTML, this.data.id, this.data.name);
+			select: function(data, option){
+				console.log(option.innerHTML, data.id, data.nombre);
 			}
 		});
 	</script>
