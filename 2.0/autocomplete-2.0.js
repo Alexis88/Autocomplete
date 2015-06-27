@@ -2,7 +2,7 @@
  * Autocomplete module
  *
  * @author   Alexis López Espinoza
- * @version 1.0
+ * @version 2.0
  */
 
 "use strict";
@@ -145,7 +145,7 @@ autocomplete.prototype = {
                             self.words.push(word);
                         }
                     }
-                    self.show();                    
+                    self.show(self);                    
                 });
             }
             else if (/(php|asp|jsp|aspx)/gi.test(self.source.substr(self.source.lastIndexOf(".") + 1))){
@@ -153,7 +153,7 @@ autocomplete.prototype = {
             }
             else{
                 self.words = self.search.toLowerCase().search(value.toLowerCase().trim()) > -1 ? [self.search] : [];
-                self.show();
+                self.show(self);
             }
         }
 
