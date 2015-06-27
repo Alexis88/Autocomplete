@@ -242,7 +242,7 @@ autocomplete.prototype = {
                 self.elem.value = event.target.innerHTML;
                 self.container.style.display = "none";
                 if (self.select){
-                    self.select(event.target);
+                    self.select(self.data, event.target);
                 }
             }
         }, false);
