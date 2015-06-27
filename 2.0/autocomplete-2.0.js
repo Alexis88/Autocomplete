@@ -2,7 +2,7 @@
  * Autocomplete module
  *
  * @author   Alexis López Espinoza
- * @version 2.0
+ * @version 1.0
  */
 
 "use strict";
@@ -45,6 +45,8 @@ autocomplete.prototype = {
         this.container.style.position = "absolute";
         this.container.style.zIndex = 9999;
         this.select = obj.select; //The callback
+        this.value = obj.value; //Value will shows on the options list
+        this.data = null; //Extra data will saved
         document.addEventListener("DOMContentLoaded", function(){            
             self.ready(obj.target);
         }, false);
@@ -88,7 +90,10 @@ autocomplete.prototype = {
         if (self.words.length){
             self.words.forEach(function(word){
                 self.span = document.createElement("span");
-                self.span.innerHTML = word;
+                self.span.innerHTML = typeof word != "object" ? word : (function(){
+                	self.data = word;
+                	return word[self.value];
+                })();
                 self.span.style.display = "block";
                 self.span.style.textAlign = "center";
                 self.span.style.cursor = "pointer";
@@ -237,7 +242,7 @@ autocomplete.prototype = {
                 self.elem.value = event.target.innerHTML;
                 self.container.style.display = "none";
                 if (self.select){
-                    self.select();
+                    self.select(event.target);
                 }
             }
         }, false);
