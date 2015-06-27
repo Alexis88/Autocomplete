@@ -1,5 +1,5 @@
 <?php
-$connection = new mysqli('localhost', 'root', 'phpdeveloper', 'bd_prueba');
+$connection = new mysqli('server', 'user', 'password', 'bd_name');
 
 if ($connection->connect_error) exit ('Could not connect to the server');
 
@@ -10,7 +10,7 @@ $response = [];
 
 if ($result->num_rows){
 	while ($row = $result->fetch_array()){
-		$response[] = $row['nombre'];
+		$response[] = ['id' => $row['idclie'], 'nombre' => $row['nombre']];
 	}
 	$result->free();
 }
