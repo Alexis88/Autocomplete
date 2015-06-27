@@ -5,7 +5,7 @@
  * @version 2.0
  */
 
-//"use strict";
+"use strict";
 
 var autocomplete = function(){
     return this;
