@@ -5,9 +5,11 @@
 	<title>Example 3</title>
 	<script type = "text/javascript" src = "../autocomplete-2.0.min.js"></script>
 	<script type = "text/javascript">
-		autocomplete.load({
+		var x = new autocomplete();
+		x.load({
 			words: "example3.php",
-			target: "foo"
+			target: "foo",
+			value: "nombre"
 		});
 	</script>
 </head>
