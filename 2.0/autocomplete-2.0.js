@@ -91,7 +91,7 @@ autocomplete.prototype = {
             self.words.forEach(function(word){
                 self.span = document.createElement("span");
                 self.span.innerHTML = typeof word != "object" ? word : (function(){
-                	self.data = word;
+                	self.span.dataset.data = JSON.stringify(word);
                 	return word[self.value];
                 })();
                 self.span.style.display = "block";
@@ -224,6 +224,9 @@ autocomplete.prototype = {
                         if (old = self.container.querySelector("." + self.cls)){
                             self.elem.value = old.innerHTML;
                             self.container.style.display = "none";
+                            if (self.select){
+                                self.select(JSON.parse(old.getAttribute("data-data")), old);
+                            }
                         }
                         else{
                             self.container.style.display = "none";   
@@ -242,7 +245,7 @@ autocomplete.prototype = {
                 self.elem.value = event.target.innerHTML;
                 self.container.style.display = "none";
                 if (self.select){
-                    self.select(self.data, event.target);
+                    self.select(JSON.parse(event.target.getAttribute("data-data")), event.target);
                 }
             }
         }, false);
