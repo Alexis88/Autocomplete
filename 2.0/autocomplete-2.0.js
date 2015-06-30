@@ -71,8 +71,8 @@ autocomplete.prototype = {
             
         self.xhr = new XMLHttpRequest();
         self.xhr.open("GET", url + "?term=" + val, true);
-        self.xhr.addEventListener("readystatechange", function(){
-            if (this.readyState == 4 && this.status == 200){
+        self.xhr.addEventListener("load", function(){
+            if (this.status == 200){
                 self.words = JSON.parse(this.responseText);
                 self.show(self);
             }                    
@@ -137,7 +137,7 @@ autocomplete.prototype = {
             self.elem = this;
             self.position(self);
 
-            if ({}.toString.call(self.source) == "[object Array]"){
+            if (Array.isArray(self.source)){
                 self.words = [];
                 self.source.forEach(function(word){
                     if (word.toLowerCase().search(value.toLowerCase().trim()) > -1){
