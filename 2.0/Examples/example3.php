@@ -1,5 +1,5 @@
 <?php
-$connection = new mysqli('server', 'user', 'password', 'bd_name');
+$connection = new mysqli('server', 'user', 'password', 'db_name');
 
 if ($connection->connect_error) exit ('Could not connect to the server');
 
