@@ -195,7 +195,7 @@ autocomplete.prototype = {
                             old.style.background = self.back || "lightyellow";
                         }
                     }
-                    else if (event.target.value.length && getComputedStyle(self.container) == "none"){
+                    else if (event.target.value.length && getComputedStyle(self.container).display == "none"){
                         self.write.call(event.target, event.target.value, self);
                     }
                 }
