@@ -240,7 +240,7 @@ autocomplete.prototype = {
             }
         }, false);
             
-        window.addEventListener("click", function(){
+        window.addEventListener("click", function(event){
             if (event.target.id != self.id && event.target.parentNode.id != self.id){
                 self.container.style.display = "none";
             }
