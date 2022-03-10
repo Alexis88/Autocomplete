@@ -10,7 +10,7 @@
  *     source: Array o archivo (['Foo', 'Bar'] o 'buscar.php'),
  * 	   input: El <input> en el que se escribe,
  * 	   show: Nombre de la variable cuyo valor será mostrado,
- * 	   callback: Función de llamada de retorno en caso se desee hacer otras acciones
+ * 	   select: Función de llamada de retorno en caso se seleccione una opción
  * });
  * 
  * NOTA: Si la fuente es una lista que proviene del servidor, el formato de dicha lista debe ser JSON
@@ -71,7 +71,8 @@ let Autocomplete = {
 
 		if (elem.hasAttribute("data-list")){
 			if (Autocomplete.options.callback && {}.toString.call(Autocomplete.options.callback) == "[object Function]"){
-				Autocomplete.options.callback();
+				Autocomplete.options.input.value = elem.textContent;
+				Autocomplete.options.callback(elem);
 			}
 			else{
 				Autocomplete.options.input.value = elem.textContent;
@@ -147,6 +148,7 @@ let Autocomplete = {
 
 				case ENTER:
 					if (actual && Autocomplete.options.callback && {}.toString.call(Autocomplete.options.callback) == "[object Function]"){
+						Autocomplete.options.input.value = actual.textContent;
 						Autocomplete.options.callback(actual);
 					}
 					else if (actual){
@@ -188,8 +190,13 @@ let Autocomplete = {
 		        opcion.style.wordWrap = "break-word";
 		        opcion.style.backgroundColor = i % 2 == 0 ? EVEN : ODD;
 		        opcion.dataset.back = i % 2 == 0 ? EVEN : ODD;
-		        opcion.setAttribute("data-list", null);
-		        opcion.innerHTML = dato;
+		        
+		        for (let prop in dato){
+		        	opcion.setAttribute("data-" + prop, dato[prop]);
+		        }
+
+		        opcion.dataset.list = "";
+		        opcion.innerHTML = dato[Autocomplete.options.show];
 
 		        Autocomplete.container.appendChild(opcion);
 		        document.body.append(Autocomplete.container);
