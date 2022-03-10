@@ -9,6 +9,7 @@
  * Autocomplete({
  *     source: Array o archivo (['Foo', 'Bar'] o 'buscar.php'),
  * 	   input: El <input> en el que se escribe,
+ *	   extraData: Datos extra a buscar en forma de query string
  * 	   show: Nombre de la variable cuyo valor será mostrado,
  * 	   select: Función de llamada de retorno en caso se seleccione una opción
  * });
@@ -56,7 +57,10 @@ let Autocomplete = {
 			}
 		}
 		else{
-			fetch(Autocomplete.options.source + "?" + new URLSearchParams({term: Autocomplete.options.input.value}))
+			fetch(Autocomplete.options.source + "?" + new URLSearchParams({
+				term: Autocomplete.options.input.value,
+				extraData: Autocomplete.options.extraData || ""
+			}))
 				.then((data) => data.json())
 				.then((response) => {
 					if (response.length) Autocomplete.list(response);
