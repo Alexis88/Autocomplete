@@ -38,8 +38,8 @@ let Autocomplete = {
 		window.addEventListener("mouseover", Autocomplete.over, false);
 		window.addEventListener("mouseout", Autocomplete.out, false);
 		window.addEventListener("resize", Autocomplete.resize, false);
-		window.addEventListener("orientationchange", Autocomplete.resize, false);
 		window.addEventListener("click", Autocomplete.click, false);
+		window.addEventListener("orientationchange", Autocomplete.resize, false);		
 		window.addEventListener("keyup", (event) => {
 			Autocomplete.container && Autocomplete.keys(event);
 		}, false);
@@ -73,10 +73,17 @@ let Autocomplete = {
 	click: (event) => {
 		let elem = event.target;
 
-		if (elem.hasAttribute("data-list")){
-			if (Autocomplete.options.callback && {}.toString.call(Autocomplete.options.callback) == "[object Function]"){
+		if (elem.hasAttribute("data-opt")){
+			if (Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
 				Autocomplete.options.input.value = elem.textContent;
-				Autocomplete.options.callback(elem);
+
+				let obj = {};
+
+				for (let prop in elem.dataset){
+					obj[prop] = elem.dataset[prop];
+				}
+
+				Autocomplete.options.select(obj);
 			}
 			else{
 				Autocomplete.options.input.value = elem.textContent;
@@ -94,7 +101,7 @@ let Autocomplete = {
 			  ESC 	= 27,
 			  ENTER = 13;
 
-		let childs = Autocomplete.container.querySelectorAll("[data-list]"), 
+		let childs = Autocomplete.container.querySelectorAll("[data-opt]"), 
 			actual = document.querySelector(".current"), pos;
 
 		if (Autocomplete.container){
@@ -151,15 +158,14 @@ let Autocomplete = {
 					break;
 
 				case ENTER:
-					if (actual && Autocomplete.options.callback && {}.toString.call(Autocomplete.options.callback) == "[object Function]"){
+					if (actual && Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
 						Autocomplete.options.input.value = actual.textContent;
-						Autocomplete.options.callback(actual);
+						Autocomplete.options.select(actual);
 					}
 					else if (actual){
 						Autocomplete.options.input.value = actual.textContent;
 					}
-
-					event.preventDefault();
+					
 					Autocomplete.container.remove();
 					break;
 
@@ -173,41 +179,46 @@ let Autocomplete = {
 	},
 
 	list: (datos) => {
-		Autocomplete.container = document.createElement("div");
+		Autocomplete.container = document.createElement("p");
 		Autocomplete.container.style.zIndex = 9999;
-		Autocomplete.container.style.position = "fixed";
+		Autocomplete.container.style.position = "absolute";
 		Autocomplete.container.style.border = "1px gray solid";
+		Autocomplete.container.style.margin = 0;
+
+		let opcion;
 
 		const ODD = "#F5F5F5",
 			  EVEN = "#DCDCDC";
 
-		if (Autocomplete.options.callback && {}.toString.call(Autocomplete.options.callback) == "[object Function]"){
-			Autocomplete.options.callback(datos);
-		}
-		else{
-			datos.forEach((dato, i) => {
-				opcion = document.createElement("span");
-				opcion.style.display = "block";
-		        opcion.style.textAlign = "center";
-		        opcion.style.cursor = "pointer";
-		        opcion.style.userSelect = "none";
-		        opcion.style.wordWrap = "break-word";
-		        opcion.style.backgroundColor = i % 2 == 0 ? EVEN : ODD;
-		        opcion.dataset.back = i % 2 == 0 ? EVEN : ODD;
-		        
-		        for (let prop in dato){
-		        	opcion.setAttribute("data-" + prop, dato[prop]);
-		        }
+		datos.forEach((dato, i) => {
+			opcion = document.createElement("b");
+			opcion.style.display = "block";
+		    opcion.style.textAlign = "center";
+		    opcion.style.cursor = "pointer";
+		    opcion.style.userSelect = "none";
+		    opcion.style.wordWrap = "break-word";
+		    opcion.style.backgroundColor = i % 2 == 0 ? EVEN : ODD;
+		    opcion.style.opacity = 1;
+		    opcion.dataset.back = i % 2 == 0 ? EVEN : ODD;
 
-		        opcion.dataset.list = "";
-		        opcion.innerHTML = dato[Autocomplete.options.show];
+		    let obj = {};
+		      
+		    for (let prop in dato){
+		      	opcion.setAttribute("data-" + prop, dato[prop]);
+		      	obj[prop] = dato[prop];
+		    }
 
-		        Autocomplete.container.appendChild(opcion);
-		        document.body.append(Autocomplete.container);
-		    });
-		}
+			if (Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
+				Autocomplete.options.select(obj);
+			}
+
+		    opcion.dataset.opt = "";
+		    opcion.innerHTML = dato[Autocomplete.options.show];
+		    Autocomplete.container.appendChild(opcion);	        
+	    });
 
 		Autocomplete.resize();
+	    document.body.append(Autocomplete.container);		
 	},
 
 	resize: () => {
@@ -222,7 +233,7 @@ let Autocomplete = {
 		let elem = event.target,
 			actual = document.querySelector(".current");
 
-		if (elem.hasAttribute("data-list")){
+		if (elem.hasAttribute("data-opt")){
 			actual && actual.classList.remove("current");
 			actual && (actual.style.backgroundColor = actual.dataset.back);
 
@@ -234,7 +245,7 @@ let Autocomplete = {
 	out: (event) => {
 		let elem = event.target;
 
-		if (elem.hasAttribute("data-list") && elem.classList.contains("current")){
+		if (elem.classList.contains("opt") && elem.classList.contains("current")){
 			elem.classList.remove("current");
 			elem.style.backgroundColor = elem.dataset.back;
 		}
