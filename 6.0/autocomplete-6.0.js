@@ -25,12 +25,8 @@
 let Autocomplete = {
 	go: (options) => {
 		Autocomplete.options = options;
-		Autocomplete.options.input.addEventListener("input", _ => {
-			Autocomplete.container && Autocomplete.container.remove();
-			if (Autocomplete.options.input.value.length){
-				Autocomplete.init();
-			}
-		}, false);	
+		Autocomplete.container && Autocomplete.container.remove();
+		Autocomplete.options.input.value.length && Autocomplete.init();
 		Autocomplete.options.input.addEventListener("blur", _ => !Autocomplete.options.input.value.length && Autocomplete.container && Autocomplete.container.remove(), false);
 	},
 
@@ -42,6 +38,9 @@ let Autocomplete = {
 		window.addEventListener("orientationchange", Autocomplete.resize, false);		
 		window.addEventListener("keyup", (event) => {
 			Autocomplete.container && Autocomplete.keys(event);
+		}, false);
+		window.addEventListener("keypress", (event) => {
+			event.which == 13 && Autocomplete.container && event.preventDefault();
 		}, false);
 
 		if ({}.toString.call(Autocomplete.options.source) == "[object Array]"){
@@ -58,9 +57,8 @@ let Autocomplete = {
 		}
 		else{
 			fetch(Autocomplete.options.source + "?" + new URLSearchParams({
-				term: Autocomplete.options.input.value,
-				extraData: Autocomplete.options.extraData || ""
-			}))
+				term: Autocomplete.options.input.value
+			}) + (Autocomplete.options.extraData ? "&" + Autocomplete.options.extraData : ""))
 				.then((data) => data.json())
 				.then((response) => {
 					if (response.length) Autocomplete.list(response);
@@ -157,16 +155,23 @@ let Autocomplete = {
 					}
 					break;
 
-				case ENTER:
+				case ENTER:					
 					if (actual && Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
 						Autocomplete.options.input.value = actual.textContent;
-						Autocomplete.options.select(actual);
+
+						let obj = {};
+
+						for (let prop in actual.dataset){
+							obj[prop] = actual.dataset[prop];
+						}
+
+						Autocomplete.options.select(obj);
 					}
 					else if (actual){
 						Autocomplete.options.input.value = actual.textContent;
 					}
 					
-					Autocomplete.container.remove();
+					Autocomplete.container.remove();					
 					break;
 
 				case ESC:
@@ -207,10 +212,6 @@ let Autocomplete = {
 		      	opcion.setAttribute("data-" + prop, dato[prop]);
 		      	obj[prop] = dato[prop];
 		    }
-
-			if (Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
-				Autocomplete.options.select(obj);
-			}
 
 		    opcion.dataset.opt = "";
 		    opcion.innerHTML = dato[Autocomplete.options.show];
