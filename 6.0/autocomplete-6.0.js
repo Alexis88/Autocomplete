@@ -27,7 +27,7 @@ let Autocomplete = {
 		Autocomplete.options = options;
 		Autocomplete.container && Autocomplete.container.remove();
 		Autocomplete.options.input.value.length && Autocomplete.init();
-		Autocomplete.options.input.addEventListener("blur", _ => !Autocomplete.options.input.value.length && Autocomplete.container && Autocomplete.container.remove(), false);
+		Autocomplete.options.input.addEventListener("blur", _ => Autocomplete.container && setTimeout(_ => Autocomplete.container.remove(), 500), false);
 	},
 
 	init: () => {
@@ -203,6 +203,7 @@ let Autocomplete = {
 		    opcion.style.userSelect = "none";
 		    opcion.style.wordWrap = "break-word";
 		    opcion.style.backgroundColor = i % 2 == 0 ? EVEN : ODD;
+		    opcion.style.color = "#2F4F4F";
 		    opcion.style.opacity = 1;
 		    opcion.dataset.back = i % 2 == 0 ? EVEN : ODD;
 
