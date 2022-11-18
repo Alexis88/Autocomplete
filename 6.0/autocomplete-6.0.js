@@ -25,7 +25,7 @@
 let Autocomplete = {
 	go: (options) => {
 		Autocomplete.options = options;
-		Autocomplete.container && Autocomplete.container.remove();
+		Autocomplete.remove();
 		Autocomplete.options.input.value.length && Autocomplete.init();
 		Autocomplete.options.input.addEventListener("blur", _ => Autocomplete.container && setTimeout(_ => Autocomplete.container.remove(), 500), false);
 	},
@@ -52,7 +52,7 @@ let Autocomplete = {
 				});
 
 				if (data.length) Autocomplete.list();
-				else Autocomplete.container && Autocomplete.container.remove();
+				else Autocomplete.remove();
 			}
 		}
 		else{
@@ -62,7 +62,7 @@ let Autocomplete = {
 				.then((data) => data.json())
 				.then((response) => {
 					if (response.length) Autocomplete.list(response);
-					else Autocomplete.container && Autocomplete.container.remove();
+					else Autocomplete.remove();
 				})
 				.catch((error) => console.log(error.message));				
 		}
@@ -87,10 +87,10 @@ let Autocomplete = {
 				Autocomplete.options.input.value = elem.textContent;
 			}
 
-			Autocomplete.container && Autocomplete.container.remove();			
+			Autocomplete.remove();			
 		}
 
-		!Autocomplete.options.input.value.length && Autocomplete.container && Autocomplete.container.remove();
+		Autocomplete.remove();
 	},
 
 	keys: (event) => {
@@ -171,11 +171,11 @@ let Autocomplete = {
 						Autocomplete.options.input.value = actual.textContent;
 					}
 					
-					Autocomplete.container.remove();					
+					Autocomplete.remove();					
 					break;
 
 				case ESC:
-					Autocomplete.container.remove();
+					Autocomplete.remove();
 					break;
 			}
 
@@ -183,8 +183,13 @@ let Autocomplete = {
 		}
 	},
 
+	remove: _ => {
+		[...document.querySelectorAll(".autocomplete-container")].forEach(container => container.remove());
+	},
+
 	list: (datos) => {
 		Autocomplete.container = document.createElement("p");
+		Autocomplete.container.classList.add("autocomplete-container");
 		Autocomplete.container.style.zIndex = 9999;
 		Autocomplete.container.style.position = "absolute";
 		Autocomplete.container.style.border = "1px gray solid";
