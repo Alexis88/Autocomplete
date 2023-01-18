@@ -93,7 +93,7 @@ let Autocomplete = {
         Autocomplete.remove();
     },
 
-    keys: (event) => {
+    keys: event => {
         const UP    = 38,
               DOWN  = 40,
               ESC   = 27,
@@ -188,7 +188,7 @@ let Autocomplete = {
         Autocomplete.repairScroll("auto");
     },
 
-    list: (datos) => {
+    list: datos => {
         Autocomplete.container = document.createElement("p");
         Autocomplete.container.classList.add("autocomplete-container");
         Autocomplete.container.style.zIndex = 9999;
