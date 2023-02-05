@@ -27,7 +27,6 @@ let Autocomplete = {
         Autocomplete.options = options;
         Autocomplete.remove();
         Autocomplete.options.input.value.length && Autocomplete.init();
-        Autocomplete.options.input.addEventListener("blur", _ => Autocomplete.container && setTimeout(_ => Autocomplete.container.remove(), 500), false);
     },
 
     init: _ => {
@@ -99,7 +98,7 @@ let Autocomplete = {
               ESC   = 27,
               ENTER = 13;
 
-        let childs = Autocomplete.container.querySelectorAll("[data-opt]"), 
+        let childs = Autocomplete.container.querySelectorAll(".autocomplete-option"), 
             actual = document.querySelector(".current"), pos;
 
         if (Autocomplete.container){
@@ -221,7 +220,6 @@ let Autocomplete = {
                 obj[prop] = dato[prop];
             }
 
-            opcion.dataset.opt = "";
             opcion.innerHTML = dato[Autocomplete.options.show];
             Autocomplete.container.appendChild(opcion);         
         });
@@ -241,7 +239,7 @@ let Autocomplete = {
 
     resize: _ => {
         Autocomplete.container.style.width = Autocomplete.options.input.offsetWidth + "px";
-        Autocomplete.container.style.top = Autocomplete.options.input.offsetTop + Autocomplete.options.input.offsetHeight + "px";
+        Autocomplete.container.style.top = (Autocomplete.options.input.offsetTop + Autocomplete.options.input.offsetHeight - (Autocomplete.options.hideScroll ? document.querySelector(Autocomplete.options.hideScroll).scrollTop : 0)) + "px";
         Autocomplete.container.style.left = Autocomplete.options.input.offsetLeft + "px";
         Autocomplete.container.style.maxHeight = window.innerHeight * .3 + "px";
         Autocomplete.container.style.overflowY = "auto";
