@@ -6,7 +6,7 @@
  * 
  * FORMA DE USO:
  * 
- * Autocomplete({
+ * Autocomplete.go({
  *     source: Array o archivo (['Foo', 'Bar'] o 'buscar.php'),
  *     input: El <input> en el que se escribe,
  *     extraData: Datos extra a buscar en forma de query string
