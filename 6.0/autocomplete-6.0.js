@@ -233,7 +233,7 @@ let Autocomplete = {
     repairScroll: prop => {
         if (Autocomplete.options.hideScroll){
             let elem = document.querySelector(Autocomplete.options.hideScroll);
-            elem.style.overflow = prop;
+            if (elem) elem.style.overflow = prop;
         }
     },
 
