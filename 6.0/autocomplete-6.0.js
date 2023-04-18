@@ -238,13 +238,15 @@ let Autocomplete = {
     },
 
     resize: _ => {
-        Autocomplete.container.style.width = Autocomplete.options.input.offsetWidth + "px";
-        Autocomplete.container.style.top = (Autocomplete.options.input.offsetTop + Autocomplete.options.input.offsetHeight - (Autocomplete.options.hideScroll ? document.querySelector(Autocomplete.options.hideScroll).scrollTop : 0)) + "px";
-        Autocomplete.container.style.left = Autocomplete.options.input.offsetLeft + "px";
-        Autocomplete.container.style.maxHeight = window.innerHeight * .3 + "px";
-        Autocomplete.container.style.overflowY = "auto";
+        if (document.querySelector(".autocomplete-container")){
+            Autocomplete.container.style.width = Autocomplete.options.input.offsetWidth + "px";
+            Autocomplete.container.style.top = (Autocomplete.options.input.offsetTop + Autocomplete.options.input.offsetHeight - (Autocomplete.options.hideScroll ? document.querySelector(Autocomplete.options.hideScroll).scrollTop : 0)) + "px";
+            Autocomplete.container.style.left = Autocomplete.options.input.offsetLeft + "px";
+            Autocomplete.container.style.maxHeight = window.innerHeight * .3 + "px";
+            Autocomplete.container.style.overflowY = "auto";
 
-        [...Autocomplete.container.querySelectorAll("b")].forEach(b => b.style.width = Autocomplete.options.input.offsetWidth + "px");
+            [...Autocomplete.container.querySelectorAll("b")].forEach(b => b.style.width = Autocomplete.options.input.offsetWidth + "px");
+        }
     },
 
     over: event => {
