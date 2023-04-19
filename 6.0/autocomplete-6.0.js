@@ -33,8 +33,8 @@ let Autocomplete = {
         window.addEventListener("mouseover", Autocomplete.over, false);
         window.addEventListener("mouseout", Autocomplete.out, false);
         window.addEventListener("resize", Autocomplete.resize, false);
-        window.addEventListener("click", Autocomplete.click, false);
-        window.addEventListener("orientationchange", Autocomplete.resize, false);       
+        window.addEventListener("orientationchange", Autocomplete.resize, false);
+        window.addEventListener("click", Autocomplete.click, false);         
         window.addEventListener("keyup", (event) => {
             Autocomplete.container && Autocomplete.keys(event);
         }, false);
@@ -58,12 +58,12 @@ let Autocomplete = {
             fetch(Autocomplete.options.source + "?" + new URLSearchParams({
                 term: Autocomplete.options.input.value
             }) + (Autocomplete.options.extraData ? "&" + Autocomplete.options.extraData : ""))
-                .then((data) => data.json())
-                .then((response) => {
+                .then(data => data.json())
+                .then(response => {
                     if (response.length) Autocomplete.list(response);
                     else Autocomplete.remove();
                 })
-                .catch((error) => console.log(error.message));              
+                .catch(error => console.log(error.message));              
         }
     },
 
