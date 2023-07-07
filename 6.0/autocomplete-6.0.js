@@ -34,10 +34,8 @@ const Autocomplete = {
         window.addEventListener("resize", _ => Autocomplete.container && Autocomplete.resize(), false);
         window.addEventListener("orientationchange", _ => Autocomplete.container && Autocomplete.resize(), false);
         window.addEventListener("click", Autocomplete.click, false);        
-        window.addEventListener("keyup", (event) => {
-            Autocomplete.container && Autocomplete.keys(event);
-        }, false);
-        window.addEventListener("keypress", (event) => {
+        document.addEventListener("keyup", event => Autocomplete.keys(event), false);
+        document.addEventListener("keypress", event => {
             event.which == 13 && Autocomplete.container && event.preventDefault();
         }, false);
 
@@ -182,7 +180,7 @@ const Autocomplete = {
     },
 
     remove: _ => {
-        [...document.querySelectorAll(".autocomplete-container")].forEach(container => container.remove());
+        document.querySelectorAll(".autocomplete-container").forEach(container => container.remove());
         Autocomplete.repairScroll("auto");
     },
 
