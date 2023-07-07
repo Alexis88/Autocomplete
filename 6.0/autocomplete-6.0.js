@@ -1,5 +1,5 @@
 /**
- * Autocompletado 
+ * AUTOCOMPLETE 
  * 
  * Muestra un listado de coincidencias encontradas en una fuente (array, base de datos) 
  * de acuerdo con lo que el usuario vaya escribiendo.
@@ -18,11 +18,10 @@
  * 
  * @author      Alexis López Espinoza
  * @version     6.0
- *  
  */
  
 
-let Autocomplete = {
+const Autocomplete = {
     go: options => {
         Autocomplete.options = options;
         Autocomplete.remove();
@@ -44,7 +43,7 @@ let Autocomplete = {
 
         if ({}.toString.call(Autocomplete.options.source) == "[object Array]"){
             if (Autocomplete.options.source.indexOf(Autocomplete.options.input.value) > -1){
-                let data = Autocomplete.options.source.map((val) => {
+                const data = Autocomplete.options.source.map(val => {
                     if (val.indexOf(Autocomplete.options.input.value) > -1){
                         return val;
                     }
@@ -68,15 +67,15 @@ let Autocomplete = {
     },
 
     click: event => {
-        let elem = event.target;
+        const elem = event.target;
 
         if (elem.classList.contains("autocomplete-option")){
             if (Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
                 Autocomplete.options.input.value = elem.textContent;
 
-                let obj = {};
+                const obj = {};
 
-                for (let prop in elem.dataset){
+                for (const prop in elem.dataset){
                     obj[prop] = elem.dataset[prop];
                 }
 
@@ -158,9 +157,9 @@ let Autocomplete = {
                     if (actual && Autocomplete.options.select && {}.toString.call(Autocomplete.options.select) == "[object Function]"){
                         Autocomplete.options.input.value = actual.textContent;
 
-                        let obj = {};
+                        const obj = {};
 
-                        for (let prop in actual.dataset){
+                        for (const prop in actual.dataset){
                             obj[prop] = actual.dataset[prop];
                         }
 
@@ -213,9 +212,9 @@ let Autocomplete = {
             opcion.style.opacity = 1;
             opcion.dataset.back = i % 2 == 0 ? EVEN : ODD;
 
-            let obj = {};
+            const obj = {};
               
-            for (let prop in dato){
+            for (const prop in dato){
                 opcion.setAttribute("data-" + prop, dato[prop]);
                 obj[prop] = dato[prop];
             }
@@ -232,7 +231,7 @@ let Autocomplete = {
 
     repairScroll: prop => {
         if (Autocomplete.options.hideScroll){
-            let elem = document.querySelector(Autocomplete.options.hideScroll);
+            const elem = document.querySelector(Autocomplete.options.hideScroll);
             if (elem) elem.style.overflow = prop;
         }
     },
@@ -246,11 +245,12 @@ let Autocomplete = {
         Autocomplete.container.style.maxHeight = `${window.innerHeight * .3}px`;
         Autocomplete.container.style.overflowY = "auto";
 
-        [...Autocomplete.container.querySelectorAll("b")].forEach(b => b.style.width = `${rect.width}px`);
+        Autocomplete.container.querySelectorAll("b").forEach(b => b.style.width = `${rect.width}px`);
     },
 
     over: event => {
-        let elem = event.target,
+        const 
+            elem = event.target,
             actual = document.querySelector(".current");
 
         if (elem.classList.contains("autocomplete-option")){
@@ -263,7 +263,7 @@ let Autocomplete = {
     },
 
     out: event => {
-        let elem = event.target;
+        const elem = event.target;
 
         if (elem.classList.contains("opt") && elem.classList.contains("current")){
             elem.classList.remove("current");
