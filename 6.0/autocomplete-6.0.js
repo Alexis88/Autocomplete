@@ -40,16 +40,14 @@ const Autocomplete = {
         }, false);
 
         if ({}.toString.call(Autocomplete.options.source) == "[object Array]"){
-            if (Autocomplete.options.source.indexOf(Autocomplete.options.input.value) > -1){
-                const data = Autocomplete.options.source.map(val => {
-                    if (val.indexOf(Autocomplete.options.input.value) > -1){
-                        return val;
-                    }
-                });
+            const data = Autocomplete.options.source.filter(val => {
+                if (val.indexOf(Autocomplete.options.input.value) > -1){
+                    return val;
+                }
+            });
 
-                if (data.length) Autocomplete.list();
-                else Autocomplete.remove();
-            }
+            if (data.length) Autocomplete.list(data);
+            else Autocomplete.remove();
         }
         else{
             fetch(Autocomplete.options.source + "?" + new URLSearchParams({
@@ -217,7 +215,7 @@ const Autocomplete = {
                 obj[prop] = dato[prop];
             }
 
-            opcion.innerHTML = dato[Autocomplete.options.show];
+            opcion.innerHTML = "show" in Autocomplete.options ? dato[Autocomplete.options.show] : dato;
             Autocomplete.container.appendChild(opcion);         
         });
 
