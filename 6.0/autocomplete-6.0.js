@@ -95,10 +95,10 @@ const Autocomplete = {
               ESC   = 27,
               ENTER = 13;
 
-        let childs = Autocomplete.container.querySelectorAll(".autocomplete-option"), 
-            actual = document.querySelector(".current"), pos;
-
         if (Autocomplete.container){
+            let childs = Autocomplete.container.querySelectorAll(".autocomplete-option"), 
+                actual = document.querySelector(".current"), pos;
+
             switch (event.keyCode){
                 case UP:
                     if (actual){
