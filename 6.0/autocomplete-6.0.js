@@ -59,12 +59,12 @@ const Autocomplete = {
                 .then(response => {
                     if (response.length) Autocomplete.list(response);
                     else Autocomplete.remove();
-                    if (Autocomplete.options.complete && {}.toString.call(Autocomplete.options.complete) == "[object Function]"){
+                    if (Autocomplete.options.complete && {}.toString.call(Autocomplete.options.complete) === "[object Function]"){
                         Autocomplete.options.complete(response);
                     }
                 })
                 .catch(error => {
-                    if (Autocomplete.options.error && {}.toString.call(Autocomplete.options.error) == "[object Function]"){
+                    if (Autocomplete.options.error && {}.toString.call(Autocomplete.options.error) === "[object Function]"){
                         Autocomplete.options.error(error);
                     }
                     console.log(error);
