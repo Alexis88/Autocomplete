@@ -57,7 +57,7 @@ const Autocomplete = {
             }) + (Autocomplete.options.extraData ? "&" + Autocomplete.options.extraData : ""))
                 .then(data => data.json())
                 .then(response => {
-                    if (response.length) Autocomplete.list(response);
+                    if (response || response.length) Autocomplete.list(response);
                     else Autocomplete.remove();
                     if (Autocomplete.options.complete && {}.toString.call(Autocomplete.options.complete) === "[object Function]"){
                         Autocomplete.options.complete(response);
@@ -89,9 +89,7 @@ const Autocomplete = {
             }
             else{
                 Autocomplete.options.input.value = elem.textContent;
-            }
-
-            Autocomplete.remove();          
+            }        
         }
 
         Autocomplete.remove();
