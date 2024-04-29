@@ -57,8 +57,16 @@ const Autocomplete = {
                 .then(response => {
                     if (response.length) Autocomplete.list(response);
                     else Autocomplete.remove();
+                    if (Autocomplete.options.complete && {}.toString.call(Autocomplete.options.complete) == "[object Function]"){
+                        Autocomplete.options.complete(response);
+                    }
                 })
-                .catch(error => console.log(error));              
+                .catch(error => {
+                    if (Autocomplete.options.error && {}.toString.call(Autocomplete.options.error) == "[object Function]"){
+                        Autocomplete.options.error(error);
+                    }
+                    console.log(error);
+                });         
         }
     },
 
