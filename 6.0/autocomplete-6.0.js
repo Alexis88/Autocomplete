@@ -191,6 +191,10 @@ const Autocomplete = {
     },
 
     list: datos => {
+        if (!datos.length){
+            return false;
+        }
+
         Autocomplete.container = document.createElement("p");
         Autocomplete.container.classList.add("autocomplete-container");
         Autocomplete.container.style.zIndex = 9999;
